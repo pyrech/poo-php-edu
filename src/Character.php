@@ -9,4 +9,6 @@ interface Character
     public function isAlive(): bool;
 
     public function getLife(): int;
+
+    public function getName(): string;
 }
