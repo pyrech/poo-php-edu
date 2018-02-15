@@ -7,12 +7,12 @@ class Team
     private $character1;
     private $character2;
 
-    public function __construct(string $name)
+    public function __construct(string $name, Character $character1, Character $character2)
     {
         $this->name = $name;
 
-        $this->character1 = new Warrior($name . ' - warrior');
-        $this->character2 = new Wizard($name . ' - wizard');
+        $this->character1 = $character1;
+        $this->character2 = $character2;
     }
 
     public function getName(): string

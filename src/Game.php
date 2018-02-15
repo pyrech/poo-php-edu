@@ -5,6 +5,8 @@ class Game
     private $team1;
     private $team2;
 
+    private $observers = [];
+
     public function __construct(Team $team1, Team $team2)
     {
         $this->team1 = $team1;
@@ -38,5 +40,17 @@ class Game
     public function getTeam2(): Team
     {
         return $this->team2;
+    }
+
+    public function addObserver(EndOfGameObserver $observer)
+    {
+        $this->observers[] = $observer;
+    }
+
+    public function finish()
+    {
+        foreach ($this->observers as $observer) {
+            $observer->notify($this);
+        }
     }
 }

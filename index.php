@@ -2,10 +2,15 @@
 
 require_once 'autoload.php';
 
-$team1 = new Team('team rouge');
-$team2 = new Team('team bleue');
+$warrior = new Warrior('toto');
+$shield = new Shield($warrior);
+
+$team1 = new Team('team rouge', $shield, new Wizard('tata'));
+$team2 = new Team('team bleue', new GodSwarm(new Warrior('toto')), new Warrior('toto'));
 
 $game = new Game($team1, $team2);
+$game->addObserver(new DisplayWinnerObserver());
+$game->addObserver(new SaveWinnerObserver());
 
 echo 'Game starts now!', PHP_EOL;
 
@@ -29,11 +34,5 @@ while(!$game->isFinish()) {
 
 echo PHP_EOL, 'Game is over!', PHP_EOL;
 
-$winner = $game->getWinnerTeam();
-
-if ($winner) {
-    echo 'The winner is ', $winner->getName(), PHP_EOL;
-} else {
-    echo 'Equality between both teams.', PHP_EOL;
-}
+$game->finish();
 
